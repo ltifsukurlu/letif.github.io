@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Latif Shukurlu | Information Security Portfolio</title>
     
-    <!-- İkonlar üçün Font Awesome Kitabxanası -->
+    <!-- Font Awesome (İkonlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -22,50 +22,77 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             color: var(--text-dark);
             background-color: var(--bg-dark);
             background-image: 
-                radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                 linear-gradient(180deg, #0b1329 0%, #0f172a 100%);
             background-size: 24px 24px, 100% 100%;
+            background-attachment: fixed;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header və Hamburger Menyu */
+        /* HEADER VƏ NAVİQASİYA */
         header {
-            position: sticky; top: 0;
+            position: fixed; top: 0; width: 100%;
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 100;
-            padding: 15px 30px;
-            display: flex; align-items: center;
+            z-index: 100; padding: 15px 30px;
+            display: flex; align-items: center; justify-content: space-between;
         }
 
         .logo-container { display: flex; align-items: center; gap: 15px; }
         .menu-btn {
             font-size: 24px; cursor: pointer;
-            background: none; border: none;
-            color: #ffffff;
+            background: none; border: none; color: #ffffff;
+            transition: color 0.2s;
         }
-        .site-title { font-size: 18px; font-weight: 700; color: #ffffff; text-decoration: none; }
+        .menu-btn:hover { color: var(--accent); }
+        .site-title { font-size: 18px; font-weight: 700; color: #ffffff; text-decoration: none; cursor: pointer; }
 
-        /* Sol Tərəfdən Açılan Menyu (Sidebar) */
+        /* DİL SEÇİMİ (DROPDOWN) */
+        .lang-dropdown { position: relative; display: inline-block; }
+        .lang-dropbtn {
+            background: rgba(255, 255, 255, 0.08); color: #60a5fa;
+            font-size: 20px; padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .lang-dropbtn:hover { background: rgba(255, 255, 255, 0.15); color: #ffffff; }
+        
+        .lang-content {
+            display: none; position: absolute; right: 0;
+            background-color: #ffffff; min-width: 140px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+            border-radius: 8px; overflow: hidden; z-index: 1;
+            margin-top: 5px;
+        }
+        .lang-content a {
+            color: var(--primary); padding: 12px 16px;
+            text-decoration: none; display: block;
+            font-weight: 600; font-size: 14px; transition: 0.2s;
+        }
+        .lang-content a:hover { background-color: #f1f5f9; color: var(--accent); }
+        .lang-dropdown:hover .lang-content { display: block; animation: fadeIn 0.3s ease; }
+
+        /* SİDEBAR (SOL MENYU) */
         .sidebar {
             height: 100%; width: 0; position: fixed; top: 0; left: 0;
             background-color: #070d19; overflow-x: hidden;
-            transition: 0.3s ease; padding-top: 60px; z-index: 1000;
+            transition: 0.3s ease; padding-top: 70px; z-index: 1000;
             box-shadow: 4px 0 20px rgba(0,0,0,0.5);
             border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
         .sidebar a {
             padding: 16px 30px; text-decoration: none;
-            font-size: 17px; color: #94a3b8; display: block;
-            transition: 0.2s; font-weight: 500;
+            font-size: 16px; color: #94a3b8; display: block;
+            transition: 0.2s; font-weight: 500; cursor: pointer;
         }
-        .sidebar a:hover { color: #ffffff; background: rgba(255,255,255,0.05); }
-        .sidebar .close-btn { position: absolute; top: 15px; right: 25px; font-size: 30px; cursor: pointer; color: #94a3b8; }
+        .sidebar a:hover, .sidebar a.active { color: #ffffff; background: rgba(255,255,255,0.05); border-left: 4px solid var(--accent); }
+        .sidebar .close-btn { position: absolute; top: 15px; right: 25px; font-size: 30px; cursor: pointer; color: #94a3b8; border:none; background:none;}
 
         .overlay {
             position: fixed; display: none; width: 100%; height: 100%;
@@ -73,76 +100,54 @@
             backdrop-filter: blur(3px); z-index: 999;
         }
 
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        /* SƏHİFƏLƏR ARASI KEÇİD EFFEKTİ (SPA MƏNTİQİ) */
+        .page-content { max-width: 1000px; margin: 100px auto 40px; padding: 0 20px; min-height: 70vh; }
+        .page-section { display: none; animation: fadePage 0.4s ease-in-out forwards; }
+        .page-section.active { display: block; }
 
-        /* Hero Bölməsi */
+        @keyframes fadePage {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HERO BÖLMƏSİ */
         .hero {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)), 
                         url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop');
             background-size: cover; background-position: center;
             color: white; padding: 60px 40px; border-radius: 12px;
-            margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .hero h1 { font-size: 38px; font-weight: 800; margin-bottom: 10px; }
         .hero h2 { font-size: 20px; color: #60a5fa; font-weight: 400; margin-bottom: 20px; }
-        .hero p { color: #cbd5e1; font-size: 16px; max-width: 750px; line-height: 1.7; }
+        .hero p { color: #cbd5e1; font-size: 16px; max-width: 750px; line-height: 1.7; margin-bottom: 30px; }
 
-        /* Sürətli Keçid Bəri */
-        .quick-links {
-            display: flex; justify-content: space-around; align-items: center;
-            gap: 20px; flex-wrap: wrap; margin-bottom: 50px;
-            padding: 25px 20px; background: var(--card-bg); border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .quick-item {
-            display: flex; flex-direction: column; align-items: center;
-            text-decoration: none; color: var(--primary); font-weight: 600;
-            font-size: 14px; gap: 12px; transition: all 0.2s ease;
-            min-width: 120px;
-        }
-        .quick-item i { font-size: 30px; color: var(--accent); transition: transform 0.2s ease; }
-        .quick-item span { border-bottom: 2px solid transparent; transition: border-color 0.2s ease; }
-        .quick-item:hover i { transform: translateY(-4px); }
-        .quick-item:hover span { border-bottom-color: var(--accent); color: var(--accent); }
-
-        /* Bölmə Başlıqları */
-        section { margin-bottom: 50px; scroll-margin-top: 100px; }
-        .section-title {
-            font-size: 24px; color: #ffffff; font-weight: 700;
-            margin-bottom: 25px; display: flex; align-items: center; gap: 10px;
-        }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.15); }
-
-        /* Grid / Kartlar */
+        /* KARTLAR VƏ QRİD */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .card {
             background: var(--card-bg); padding: 28px; border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: transform 0.2s;
             display: flex; flex-direction: column; justify-content: space-between;
         }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
+        .card:hover { transform: translateY(-4px); }
         .card h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; }
         .card p { color: var(--text-light); font-size: 14px; margin-bottom: 20px; }
         
         .btn {
-            display: inline-block; padding: 10px 18px;
-            background-color: var(--accent); color: white;
-            text-decoration: none; border-radius: 6px;
-            font-weight: 600; font-size: 14px; transition: 0.2s; border: none; cursor: pointer;
+            display: inline-block; padding: 10px 18px; background-color: var(--accent);
+            color: white; text-decoration: none; border-radius: 6px; font-weight: 600;
+            font-size: 14px; transition: 0.2s; border: none; cursor: pointer; text-align: center;
         }
         .btn:hover { background-color: var(--accent-hover); }
 
-        /* Xidmətlər İkon Düzümü */
         .service-icon {
             width: 42px; height: 42px; background: #eff6ff; color: var(--accent);
             border-radius: 8px; display: flex; align-items: center; justify-content: center;
             font-size: 20px; flex-shrink: 0;
         }
 
-        /* Bacarıqlar Veqi (Skills Badges) */
-        .skills-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        /* BACARIQLAR */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .skill-badge {
             background: rgba(255, 255, 255, 0.08); color: #e2e8f0;
             padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
@@ -150,6 +155,7 @@
         }
         .skill-badge i { color: #60a5fa; }
 
+        /* AKADEMİK TİMELİNE */
         .timeline-item {
             background: var(--card-bg); padding: 24px; border-radius: 8px;
             margin-bottom: 20px; border-left: 4px solid var(--accent);
@@ -158,227 +164,275 @@
         .timeline-item h4 { color: var(--primary); font-size: 17px; margin-bottom: 4px; }
         .timeline-item .date { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 10px; display: block; }
 
-        /* XÜSUSİ MODAL / DETAL PƏNCƏRƏSİ STİLİ */
-        .modal-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 19, 41, 0.8); backdrop-filter: blur(8px);
-            display: none; justify-content: center; align-items: center;
-            z-index: 2000; padding: 20px;
-        }
-        .modal-card {
-            background: #ffffff; width: 100%; max-width: 650px;
-            border-radius: 12px; padding: 35px; position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: modalFadeIn 0.3s ease;
-        }
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .modal-close {
-            position: absolute; top: 20px; right: 20px;
-            font-size: 24px; color: #64748b; cursor: pointer; transition: 0.2s;
-        }
-        .modal-close:hover { color: #0f172a; }
-        .modal-title { font-size: 22px; color: var(--primary); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
-        .modal-body { color: #334155; font-size: 15px; line-height: 1.7; margin-top: 15px; }
-        .modal-body ul { margin-left: 20px; margin-top: 10px; margin-bottom: 15px; }
-        .modal-body li { margin-bottom: 6px; }
+        .section-title { font-size: 24px; color: #ffffff; font-weight: 700; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
 
-        footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 60px; }
+        footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
 
+    <!-- Qaranlıq Arxa Plan (Menyu açılanda) -->
     <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
+    <!-- ÜST MENYU VƏ DİL DROPDOWN -->
     <header>
         <div class="logo-container">
-            <button class="menu-btn" onclick="openNav()">&#9776;</button>
-            <a href="#" class="site-title">Latif Shukurlu</a>
+            <button class="menu-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i></button>
+            <a class="site-title" onclick="navigateTo('home')">Latif Shukurlu</a>
+        </div>
+
+        <div class="lang-dropdown">
+            <button class="lang-dropbtn"><i class="fa-solid fa-globe"></i> <i class="fa-solid fa-caret-down" style="font-size: 12px; margin-left: 4px;"></i></button>
+            <div class="lang-content">
+                <a href="#" onclick="changeLanguage('en')">🇺🇸 English</a>
+                <a href="#" onclick="changeLanguage('az')">🇦🇿 Azərbaycan</a>
+            </div>
         </div>
     </header>
 
+    <!-- SOL SİDEBAR EKRANLARI -->
     <div id="mySidebar" class="sidebar">
-        <span class="close-btn" onclick="closeNav()">&times;</span>
-        <a href="#about" onclick="closeNav()">About Me</a>
-        <a href="#services" onclick="closeNav()">Services & Capabilities</a>
-        <a href="#skills" onclick="closeNav()">Technical Skills</a>
-        <a href="#academic" onclick="closeNav()">Academic Background</a>
-        <a href="#reports" onclick="closeNav()">Technical Reports</a>
-        <a href="#contact" onclick="closeNav()">Contact</a>
+        <button class="close-btn" onclick="closeNav()">&times;</button>
+        <a onclick="navigateTo('home')" id="nav-home" class="active" data-i18n="nav_home">Home</a>
+        <a onclick="navigateTo('services')" id="nav-services" data-i18n="nav_services">Services & Expertise</a>
+        <a onclick="navigateTo('skills')" id="nav-skills" data-i18n="nav_skills">Technical Skills</a>
+        <a onclick="navigateTo('academic')" id="nav-academic" data-i18n="nav_academic">Academic Profile</a>
+        <a onclick="navigateTo('reports')" id="nav-reports" data-i18n="nav_reports">Security Reports</a>
+        <a onclick="navigateTo('contact')" id="nav-contact" data-i18n="nav_contact">Contact</a>
     </div>
 
-    <div class="container">
+    <!-- ƏSAS MƏZMUN (SƏHİFƏLƏR ARASI KEÇİD BURADA BAŞ VERİR) -->
+    <div class="page-content">
         
-        <!-- Hero Bölməsi -->
-        <section class="hero" id="about">
-            <h1>Latif Shukurlu</h1>
-            <h2>Information Security Undergraduate & Researcher</h2>
-            <p>Specializing in Information Security with a practical focus on network vulnerability assessments, web application security, and cybersecurity labs. Active participant in international student exchanges, academic forums, and youth programs.</p>
+        <!-- SƏHİFƏ 1: HOME -->
+        <section id="home" class="page-section active">
+            <div class="hero">
+                <h1>Latif Shukurlu</h1>
+                <h2 data-i18n="hero_subtitle">Information Security Undergraduate & Researcher</h2>
+                <p data-i18n="hero_desc">Specializing in Information Security with a practical focus on network vulnerability assessments, web application security, and cybersecurity labs. Active participant in international student exchanges, academic forums, and youth programs.</p>
+                <button class="btn" onclick="navigateTo('services')" data-i18n="btn_explore">Explore My Work &rarr;</button>
+            </div>
         </section>
 
-        <!-- Sürətli İkon Keçidləri -->
-        <div class="quick-links">
-            <a href="#services" class="quick-item">
-                <i class="fa-solid fa-list-check"></i>
-                <span>Services</span>
-            </a>
-            <a href="#reports" class="quick-item">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>Security Reports</span>
-            </a>
-            <a href="#academic" class="quick-item">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>Academic Info</span>
-            </a>
-            <a href="#skills" class="quick-item">
-                <i class="fa-solid fa-code"></i>
-                <span>Core Skills</span>
-            </a>
-            <a href="#contact" class="quick-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Get in Touch</span>
-            </a>
-        </div>
-
-        <!-- XİDMƏTLƏR VƏ EKSPERTİZA -->
-        <section id="services">
-            <h3 class="section-title">Services & Expertise</h3>
+        <!-- SƏHİFƏ 2: XİDMƏTLƏR -->
+        <section id="services" class="page-section">
+            <h3 class="section-title" data-i18n="sec_services">Services & Expertise</h3>
             <div class="grid">
-                
                 <div class="card">
                     <div>
                         <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                             <div class="service-icon"><i class="fa-solid fa-bug"></i></div>
-                            <h4 style="margin: 0;">Web Security Testing</h4>
+                            <h4 style="margin: 0;" data-i18n="srv1_title">Web Security Testing</h4>
                         </div>
-                        <p>Analyzing web applications for vulnerability vectors (OWASP Top 10), client-side & server-side flaw identification.</p>
+                        <p data-i18n="srv1_desc">Analyzing web applications for vulnerability vectors (OWASP Top 10), client-side & server-side flaw identification.</p>
                     </div>
-                    <button class="btn" onclick="openModal('web-sec')">View Details & Scope &rarr;</button>
                 </div>
-
                 <div class="card">
                     <div>
                         <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                             <div class="service-icon"><i class="fa-solid fa-network-wired"></i></div>
-                            <h4 style="margin: 0;">Network Enumeration</h4>
+                            <h4 style="margin: 0;" data-i18n="srv2_title">Network Enumeration</h4>
                         </div>
-                        <p>Network discovery, open port auditing, service identification, and misconfiguration evaluations.</p>
+                        <p data-i18n="srv2_desc">Network discovery, open port auditing, service identification, and misconfiguration evaluations.</p>
                     </div>
-                    <button class="btn" onclick="openModal('net-enum')">View Details & Scope &rarr;</button>
                 </div>
-
                 <div class="card">
                     <div>
                         <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                             <div class="service-icon"><i class="fa-solid fa-terminal"></i></div>
-                            <h4 style="margin: 0;">Linux System Hardening</h4>
+                            <h4 style="margin: 0;" data-i18n="srv3_title">Linux System Hardening</h4>
                         </div>
-                        <p>Access control configurations, shell navigation, privilege management, and OS security baseline verification.</p>
+                        <p data-i18n="srv3_desc">Access control configurations, shell navigation, privilege management, and OS security baseline verification.</p>
                     </div>
-                    <button class="btn" onclick="openModal('linux-sec')">View Details & Scope &rarr;</button>
                 </div>
-
-                <div class="card">
-                    <div>
-                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                            <div class="service-icon"><i class="fa-solid fa-file-contract"></i></div>
-                            <h4 style="margin: 0;">Technical Security Writing</h4>
-                        </div>
-                        <p>Authoring comprehensive lab write-ups, vulnerability assessment reports, and clear remediation guidance.</p>
-                    </div>
-                    <button class="btn" onclick="openModal('tech-write')">View Details & Scope &rarr;</button>
-                </div>
-
             </div>
         </section>
 
-        <!-- TEXNİKİ BACARIQLAR -->
-        <section id="skills">
-            <h3 class="section-title">Technical Skills & Competencies</h3>
-            <div class="skills-container">
+        <!-- SƏHİFƏ 3: BACARIQLAR -->
+        <section id="skills" class="page-section">
+            <h3 class="section-title" data-i18n="sec_skills">Technical Skills & Competencies</h3>
+            <div class="skills-container" style="margin-top: 30px;">
                 <div class="skill-badge"><i class="fa-brands fa-linux"></i> Linux Administration</div>
                 <div class="skill-badge"><i class="fa-solid fa-shield-halved"></i> Web App Security</div>
                 <div class="skill-badge"><i class="fa-solid fa-network-wired"></i> Network Analysis</div>
                 <div class="skill-badge"><i class="fa-solid fa-magnifying-glass"></i> Vulnerability Assessment</div>
-                <div class="skill-badge"><i class="fa-solid fa-terminal"></i> Bash & Shell Commands</div>
-                <div class="skill-badge"><i class="fa-solid fa-drafting-compass"></i> AutoCAD Technical Drawing</div>
+                <div class="skill-badge"><i class="fa-solid fa-terminal"></i> Bash & Shell Scripts</div>
                 <div class="skill-badge"><i class="fa-solid fa-laptop-code"></i> PortSwigger Labs</div>
-                <div class="skill-badge"><i class="fa-solid fa-cube"></i> OverTheWire / TryHackMe</div>
+                <div class="skill-badge"><i class="fa-solid fa-cube"></i> TryHackMe / OverTheWire</div>
+                <div class="skill-badge"><i class="fa-solid fa-pen-ruler"></i> AutoCAD Basics</div>
             </div>
         </section>
 
-        <!-- Akademik Fəaliyyətlər -->
-        <section id="academic">
-            <h3 class="section-title">Academic Background & Engagement</h3>
-            
+        <!-- SƏHİFƏ 4: AKADEMİK -->
+        <section id="academic" class="page-section">
+            <h3 class="section-title" data-i18n="sec_academic">Academic Background & Engagement</h3>
             <div class="timeline-item">
-                <h4>Azerbaijan Architecture and Construction University</h4>
-                <span class="date">Degree: B.Sc. in Information Security (2nd Year)</span>
-                <p>Focusing on cybersecurity principles, Linux system administration, and network analysis. Applying theoretical foundations to practical cybersecurity frameworks.</p>
+                <h4 data-i18n="acad1_title">Azerbaijan Architecture and Construction University</h4>
+                <span class="date" data-i18n="acad1_degree">Degree: B.Sc. in Information Security (2nd Year)</span>
+                <p data-i18n="acad1_desc">Focusing on cybersecurity principles, Linux system administration, and network analysis. Applying theoretical foundations to practical cybersecurity frameworks.</p>
             </div>
-
             <div class="timeline-item">
-                <h4>International Forums & Student Mobility</h4>
-                <span class="date">May 2026 - Present</span>
-                <p>Participant in global organizational events such as UN's WUF13 and European student mobility projects (Erasmus+), demonstrating strong intercultural and academic communication skills.</p>
+                <h4 data-i18n="acad2_title">International Forums & Student Mobility</h4>
+                <span class="date" data-i18n="acad2_date">May 2026 - Present</span>
+                <p data-i18n="acad2_desc">Active participant in global organizational events such as UN's WUF13 and European student mobility projects (Erasmus+).</p>
             </div>
         </section>
 
-        <!-- Texniki Hesabatlar -->
-        <section id="reports">
-            <h3 class="section-title">Technical Reports & Write-ups</h3>
-            <p style="margin-bottom: 20px; color: #cbd5e1;">Comprehensive write-ups and documentation on web security labs, system administration, and vulnerability research.</p>
-            
+        <!-- SƏHİFƏ 5: HESABATLAR -->
+        <section id="reports" class="page-section">
+            <h3 class="section-title" data-i18n="sec_reports">Technical Reports</h3>
+            <p style="margin-bottom: 20px; color: #cbd5e1;" data-i18n="reports_desc">Comprehensive write-ups and documentation on web security labs and vulnerability research.</p>
             <div class="grid">
                 <div class="card">
-                    <h4>Web Application Vulnerabilities</h4>
-                    <p>Detailed analysis covering client-side and server-side vulnerabilities evaluated on PortSwigger security platforms.</p>
-                    <a href="report1.pdf" target="_blank" class="btn">View Document (PDF)</a>
+                    <h4 data-i18n="rep1_title">Web Application Vulnerabilities</h4>
+                    <p data-i18n="rep1_desc">Detailed analysis evaluated on PortSwigger security platforms.</p>
+                    <a href="#" class="btn" data-i18n="btn_pdf">View Document</a>
                 </div>
-
                 <div class="card">
-                    <h4>Linux Security & Shell Navigation</h4>
-                    <p>Security write-up detailing access controls, privilege management, and command-line mechanics from OverTheWire Bandit labs.</p>
-                    <a href="report2.pdf" target="_blank" class="btn">View Document (PDF)</a>
-                </div>
-
-                <div class="card">
-                    <h4>Network Assessment & Enumeration</h4>
-                    <p>Documentation on network scanning techniques, threat identification, and vulnerability remediation scenarios.</p>
-                    <a href="report3.pdf" target="_blank" class="btn">View Document (PDF)</a>
+                    <h4 data-i18n="rep2_title">Linux Security Navigation</h4>
+                    <p data-i18n="rep2_desc">Security write-up detailing access controls and privilege management.</p>
+                    <a href="#" class="btn" data-i18n="btn_pdf">View Document</a>
                 </div>
             </div>
         </section>
 
-        <!-- Əlaqə -->
-        <section id="contact">
-            <h3 class="section-title">Contact & Professional Profiles</h3>
+        <!-- SƏHİFƏ 6: ƏLAQƏ -->
+        <section id="contact" class="page-section">
+            <h3 class="section-title" data-i18n="sec_contact">Contact</h3>
             <div class="card" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
                 <div>
-                    <h4 style="margin: 0;">Get in Touch</h4>
-                    <p style="margin: 5px 0 0 0;">Open for academic collaboration, exchange projects, and security research.</p>
+                    <h4 style="margin: 0;" data-i18n="cnt_title">Get in Touch</h4>
+                    <p style="margin: 5px 0 0 0;" data-i18n="cnt_desc">Open for academic collaboration, exchange projects, and security research.</p>
                 </div>
-                <a href="mailto:your-email@example.com" class="btn">Send Email</a>
+                <a href="mailto:your-email@example.com" class="btn" data-i18n="btn_email">Send Email</a>
             </div>
         </section>
 
-    </div>
-
-    <!-- İNTERAKTİV DETAL MODAL PƏNCƏRƏSİ -->
-    <div id="serviceModal" class="modal-bg" onclick="closeModalOnOuterClick(event)">
-        <div class="modal-card">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <div id="modalContent"></div>
-        </div>
     </div>
 
     <footer>
         &copy; 2026 Latif Shukurlu. Portfolio hosted on GitHub Pages.
     </footer>
 
+    <!-- FUNKSİYALAR: DİL DƏYİŞİMİ VƏ SƏHİFƏ KEÇİDLƏRİ -->
     <script>
+        // 1. Dil Tərcümə Bazası
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services & Expertise",
+                nav_skills: "Technical Skills",
+                nav_academic: "Academic Profile",
+                nav_reports: "Security Reports",
+                nav_contact: "Contact",
+                hero_subtitle: "Information Security Undergraduate & Researcher",
+                hero_desc: "Specializing in Information Security with a practical focus on network vulnerability assessments, web application security, and cybersecurity labs. Active participant in international student exchanges, academic forums, and youth programs.",
+                btn_explore: "Explore My Work →",
+                sec_services: "Services & Expertise",
+                srv1_title: "Web Security Testing",
+                srv1_desc: "Analyzing web applications for vulnerability vectors (OWASP Top 10), client-side & server-side flaw identification.",
+                srv2_title: "Network Enumeration",
+                srv2_desc: "Network discovery, open port auditing, service identification, and misconfiguration evaluations.",
+                srv3_title: "Linux System Hardening",
+                srv3_desc: "Access control configurations, shell navigation, privilege management, and OS security baseline verification.",
+                sec_skills: "Technical Skills & Competencies",
+                sec_academic: "Academic Background & Engagement",
+                acad1_title: "Azerbaijan Architecture and Construction University",
+                acad1_degree: "Degree: B.Sc. in Information Security (2nd Year)",
+                acad1_desc: "Focusing on cybersecurity principles, Linux system administration, and network analysis. Applying theoretical foundations to practical cybersecurity frameworks.",
+                acad2_title: "International Forums & Student Mobility",
+                acad2_date: "May 2026 - Present",
+                acad2_desc: "Active participant in global organizational events such as UN's WUF13 and European student mobility projects (Erasmus+).",
+                sec_reports: "Technical Reports",
+                reports_desc: "Comprehensive write-ups and documentation on web security labs and vulnerability research.",
+                rep1_title: "Web Application Vulnerabilities",
+                rep1_desc: "Detailed analysis evaluated on PortSwigger security platforms.",
+                rep2_title: "Linux Security Navigation",
+                rep2_desc: "Security write-up detailing access controls and privilege management.",
+                btn_pdf: "View Document",
+                sec_contact: "Contact",
+                cnt_title: "Get in Touch",
+                cnt_desc: "Open for academic collaboration, exchange projects, and security research.",
+                btn_email: "Send Email"
+            },
+            az: {
+                nav_home: "Əsas Səhifə",
+                nav_services: "Xidmətlər",
+                nav_skills: "Texniki Bacarıqlar",
+                nav_academic: "Təhsil & Fəaliyyət",
+                nav_reports: "Hesabatlar",
+                nav_contact: "Əlaqə",
+                hero_subtitle: "İnformasiya Təhlükəsizliyi Tələbəsi və Tədqiqatçı",
+                hero_desc: "İnformasiya Təhlükəsizliyi sahəsində şəbəkə zəifliklərinin qiymətləndirilməsi, veb tətbiq təhlükəsizliyi və kiber-laboratoriya tapşırıqları üzrə praktiki ixtisaslaşma. Beynəlxalq tələbə mübadilələri, akademik forumlar və gənclər layihələrinin fəal iştirakçısı.",
+                btn_explore: "Fəaliyyətimlə Tanış Ol →",
+                sec_services: "Xidmətlər və Ekspertiza",
+                srv1_title: "Veb Tətbiq Təhlükəsizliyi",
+                srv1_desc: "Veb tətbiqlərin OWASP Top 10 zəiflik vektorları, istifadəçi və server tərəfli xətalarının təhlili.",
+                srv2_title: "Şəbəkə Auditi",
+                srv2_desc: "Şəbəkə resurslarının aşkarlanması, açıq portların auditi, xidmətlərin təyini və konfiqurasiya xətalarının qiymətləndirilməsi.",
+                srv3_title: "Linux Sistem Təhlükəsizliyi",
+                srv3_desc: "Çıxış hüquqlarının tənzimlənməsi, imtiyazların idarə olunması və ƏS təhlükəsizlik standartlarının yoxlanılması.",
+                sec_skills: "Texniki Bacarıqlar",
+                sec_academic: "Təhsil və Akademik Fəaliyyət",
+                acad1_title: "Azərbaycan Memarlıq və İnşaat Universiteti",
+                acad1_degree: "Dərəcə: İnformasiya Təhlükəsizliyi (2-ci kurs)",
+                acad1_desc: "Kiber-təhlükəsizlik prinsipləri, Linux sistem inzibatçılığı və şəbəkə analizi üzrə ixtisaslaşma.",
+                acad2_title: "Beynəlxalq Tələbə Mobilliyi",
+                acad2_date: "May 2026 - Hal-hazırda",
+                acad2_desc: "BMT-nin WUF13 forumu və Avropa tələbə mobilliyi layihələrinin (Erasmus+) fəal iştirakçısı.",
+                sec_reports: "Texniki Hesabatlar",
+                reports_desc: "Veb təhlükəsizlik laboratoriyaları, sistem inzibatçılığı və zəiflik tədqiqatları üzrə ətraflı sənədləşdirmə.",
+                rep1_title: "Veb Tətbiq Zəiflikləri",
+                rep1_desc: "PortSwigger platformasında icra edilmiş təhlükəsizlik zəifliklərinin təhlil hesabatı.",
+                rep2_title: "Linux Təhlükəsizliyi",
+                rep2_desc: "Çıxış hüquqları və imtiyazların idarə olunması hesabatı.",
+                btn_pdf: "Sənədə Bax",
+                sec_contact: "Əlaqə",
+                cnt_title: "Əlaqə Saxlayın",
+                cnt_desc: "Akademik şərikliklər, tələbə mübadilələri və tədqiqatlar üzrə açığam.",
+                btn_email: "E-poçt Göndər"
+            }
+        };
+
+        // 2. Default Dili Təyin Etmə (İngilis)
+        let currentLang = localStorage.getItem('site_lang') || 'en';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('site_lang', lang);
+            
+            // Səhifədəki mətni dəyiş
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    elem.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        // 3. Səhifələr Arası Keçid Sistemi (SPA)
+        function navigateTo(pageId) {
+            // Bütün səhifələri gizlət
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Seçilən səhifəni göstər
+            document.getElementById(pageId).classList.add('active');
+
+            // Menyu aktivliyini dəyiş (Rəngləmə)
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.getElementById('nav-' + pageId).classList.add('active');
+
+            // Əgər mobildədirsə və ya menyu açıqdırsa, bağla
+            closeNav();
+            
+            // Səhifənin ən yuxarısına qaytar
+            window.scrollTo(0, 0);
+        }
+
+        // 4. Sidebar (Menyu) İdarəçiliyi
         function openNav() {
             document.getElementById("mySidebar").style.width = "280px";
             document.getElementById("overlay").style.display = "block";
@@ -389,84 +443,11 @@
             document.getElementById("overlay").style.display = "none";
         }
 
-        /* MODAL / SUB-PAGE DYNAMIC CONTENT FUNCTIONALITY */
-        const modalData = {
-            'web-sec': {
-                title: '<i class="fa-solid fa-bug" style="color:#2563eb;"></i> Web Application Security Assessment',
-                body: `
-                    <p>Comprehensive evaluation of web application logic and attack surfaces according to industry frameworks (OWASP Top 10).</p>
-                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
-                    <ul>
-                        <li>Input validation and sanitization testing (SQLi, XSS, CSRF).</li>
-                        <li>Authentication mechanics and session state evaluations.</li>
-                        <li>Client-side vs Server-side vulnerability analysis using PortSwigger Web Security Academy labs.</li>
-                    </ul>
-                    <p style="font-size:13px; color:#64748b;"><strong>Primary Tools:</strong> Burp Suite, Browser Developer Tools, PortSwigger Labs.</p>
-                `
-            },
-            'net-enum': {
-                title: '<i class="fa-solid fa-network-wired" style="color:#2563eb;"></i> Network Assessment & Enumeration',
-                body: `
-                    <p>Auditing active network nodes, mapping exposed services, and identifying security misconfigurations across internal and external assets.</p>
-                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
-                    <ul>
-                        <li>Port scanning and active service fingerprinting.</li>
-                        <li>Identification of unpatched or legacy service protocols.</li>
-                        <li>Evaluating network segmentation and vulnerability remediation scenarios.</li>
-                    </ul>
-                    <p style="font-size:13px; color:#64748b;"><strong>Primary Tools:</strong> Nmap, Wireshark, Command-Line Utilities.</p>
-                `
-            },
-            'linux-sec': {
-                title: '<i class="fa-solid fa-terminal" style="color:#2563eb;"></i> Linux System Hardening & Administration',
-                body: `
-                    <p>Practical configuration, access control management, and privilege level security within Linux distributions.</p>
-                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
-                    <ul>
-                        <li>POSIX permission management and file-system security controls.</li>
-                        <li>Privilege escalation vector identification and mitigation.</li>
-                        <li>Shell environment navigation and automated bash scripting (OverTheWire Bandit practice).</li>
-                    </ul>
-                    <p style="font-size:13px; color:#64748b;"><strong>Primary Tools:</strong> Linux Bash Shell, SSH, OverTheWire Labs.</p>
-                `
-            },
-            'tech-write': {
-                title: '<i class="fa-solid fa-file-contract" style="color:#2563eb;"></i> Technical Documentation & Write-ups',
-                body: `
-                    <p>Translating complex technical vulnerability research into structured, readable reports for academic and institutional evaluation.</p>
-                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
-                    <ul>
-                        <li>Detailed Proof of Concept (PoC) step-by-step drafting.</li>
-                        <li>Impact evaluation and technical risk scoring.</li>
-                        <li>Actionable remediation strategies tailored for infrastructure teams.</li>
-                    </ul>
-                    <p style="font-size:13px; color:#64748b;"><strong>Formats:</strong> Technical Markdown Write-ups, Executive Summaries, PDF Documentation.</p>
-                `
-            }
-        };
-
-        function openModal(key) {
-            const data = modalData[key];
-            if(data) {
-                document.getElementById('modalContent').innerHTML = `
-                    <div class="modal-title">${data.title}</div>
-                    <div class="modal-body">${data.body}</div>
-                `;
-                document.getElementById('serviceModal').style.display = 'flex';
-            }
-        }
-
-        function closeModal() {
-            document.getElementById('serviceModal').style.display = 'none';
-        }
-
-        function closeModalOnOuterClick(event) {
-            if (event.target.id === 'serviceModal') {
-                closeModal();
-            }
-        }
+        // Səhifə tam yükləndikdə dili və ilk səhifəni (Home) aktivləşdir
+        window.addEventListener('DOMContentLoaded', () => {
+            changeLanguage(currentLang);
+        });
     </script>
 
 </body>
 </html>
-<!-- update -->
