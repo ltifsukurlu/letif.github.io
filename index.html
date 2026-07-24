@@ -10,12 +10,12 @@
     
     <style>
         :root {
+            --bg-dark: #0b1329;
             --primary: #0f172a;
             --accent: #2563eb;
             --accent-hover: #1d4ed8;
-            --text-dark: #334155;
+            --text-dark: #1e293b;
             --text-light: #64748b;
-            --bg-light: #f8fafc;
             --card-bg: #ffffff;
         }
 
@@ -24,10 +24,11 @@
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark);
-            background-color: var(--bg-light);
+            /* Müasir Tünd Göy-Boz Arxa Fon və Yüngül Tor Şəkli */
+            background-color: var(--bg-dark);
             background-image: 
-                radial-gradient(#cbd5e1 1px, transparent 1px), 
-                linear-gradient(to bottom, rgba(248, 250, 252, 0.85), rgba(248, 250, 252, 0.95));
+                radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(180deg, #0b1329 0%, #0f172a 100%);
             background-size: 24px 24px, 100% 100%;
             line-height: 1.6;
         }
@@ -35,9 +36,9 @@
         /* Header və Hamburger Menyu */
         header {
             position: sticky; top: 0;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid #e2e8f0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 100;
             padding: 15px 30px;
             display: flex; align-items: center;
@@ -47,16 +48,17 @@
         .menu-btn {
             font-size: 24px; cursor: pointer;
             background: none; border: none;
-            color: var(--primary);
+            color: #ffffff;
         }
-        .site-title { font-size: 18px; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .site-title { font-size: 18px; font-weight: 700; color: #ffffff; text-decoration: none; }
 
         /* Sol Tərəfdən Açılan Menyu (Sidebar) */
         .sidebar {
             height: 100%; width: 0; position: fixed; top: 0; left: 0;
-            background-color: var(--primary); overflow-x: hidden;
+            background-color: #070d19; overflow-x: hidden;
             transition: 0.3s ease; padding-top: 60px; z-index: 1000;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.15);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
         .sidebar a {
             padding: 16px 30px; text-decoration: none;
@@ -68,30 +70,31 @@
 
         .overlay {
             position: fixed; display: none; width: 100%; height: 100%;
-            top: 0; left: 0; background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(2px); z-index: 999;
+            top: 0; left: 0; background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px); z-index: 999;
         }
 
         .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
 
         /* Hero Bölməsi */
         .hero {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88)), 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)), 
                         url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop');
             background-size: cover; background-position: center;
             color: white; padding: 60px 40px; border-radius: 12px;
-            margin-bottom: 30px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .hero h1 { font-size: 38px; font-weight: 800; margin-bottom: 10px; }
         .hero h2 { font-size: 20px; color: #60a5fa; font-weight: 400; margin-bottom: 20px; }
         .hero p { color: #cbd5e1; font-size: 16px; max-width: 750px; line-height: 1.7; }
 
-        /* Microsoft İkon Paneli Stilində Sürətli Keçid Bəri (Quick Links) */
+        /* Sürətli Keçid Bəri (Quick Links) */
         .quick-links {
             display: flex; justify-content: space-around; align-items: center;
             gap: 20px; flex-wrap: wrap; margin-bottom: 50px;
-            padding: 25px 20px; background: #ffffff; border-radius: 12px;
-            border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+            padding: 25px 20px; background: var(--card-bg); border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         .quick-item {
             display: flex; flex-direction: column; align-items: center;
@@ -111,19 +114,19 @@
         /* Bölmə Başlıqları */
         section { margin-bottom: 50px; scroll-margin-top: 100px; }
         .section-title {
-            font-size: 24px; color: var(--primary); font-weight: 700;
+            font-size: 24px; color: #ffffff; font-weight: 700;
             margin-bottom: 25px; display: flex; align-items: center; gap: 10px;
         }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: #cbd5e1; }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.15); }
 
         /* Grid / Kartlar */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
         .card {
             background: var(--card-bg); padding: 28px; border-radius: 10px;
-            border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0,0,0,0.08); }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
         .card h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; }
         .card p { color: var(--text-light); font-size: 14px; margin-bottom: 20px; }
         
@@ -136,13 +139,14 @@
         .btn:hover { background-color: var(--accent-hover); }
 
         .timeline-item {
-            background: white; padding: 24px; border-radius: 8px;
-            margin-bottom: 20px; border: 1px solid #e2e8f0; border-left: 4px solid var(--accent);
+            background: var(--card-bg); padding: 24px; border-radius: 8px;
+            margin-bottom: 20px; border-left: 4px solid var(--accent);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         .timeline-item h4 { color: var(--primary); font-size: 17px; margin-bottom: 4px; }
         .timeline-item .date { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 10px; display: block; }
 
-        footer { text-align: center; padding: 30px; color: var(--text-light); font-size: 14px; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+        footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 60px; }
     </style>
 </head>
 <body>
@@ -173,7 +177,7 @@
             <p>Specializing in Information Security with a practical focus on network vulnerability assessments, web application security, and cybersecurity labs. Active participant in international student exchanges, academic forums, and youth programs.</p>
         </section>
 
-        <!-- Microsoft Əsilli Sürətli İkon Keçidləri (Quick Navigation Bar) -->
+        <!-- Sürətli İkon Keçidləri -->
         <div class="quick-links">
             <a href="#reports" class="quick-item">
                 <i class="fa-solid fa-shield-halved"></i>
@@ -217,7 +221,7 @@
         <!-- Texniki Hesabatlar -->
         <section id="reports">
             <h3 class="section-title">Technical Reports & Write-ups</h3>
-            <p style="margin-bottom: 20px; color: var(--text-light);">Comprehensive write-ups and documentation on web security labs, system administration, and vulnerability research.</p>
+            <p style="margin-bottom: 20px; color: #cbd5e1;">Comprehensive write-ups and documentation on web security labs, system administration, and vulnerability research.</p>
             
             <div class="grid">
                 <div class="card">
