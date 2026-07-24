@@ -88,7 +88,7 @@
         .hero h2 { font-size: 20px; color: #60a5fa; font-weight: 400; margin-bottom: 20px; }
         .hero p { color: #cbd5e1; font-size: 16px; max-width: 750px; line-height: 1.7; }
 
-        /* Sürətli Keçid Bəri (Quick Links) */
+        /* Sürətli Keçid Bəri */
         .quick-links {
             display: flex; justify-content: space-around; align-items: center;
             gap: 20px; flex-wrap: wrap; margin-bottom: 50px;
@@ -101,12 +101,8 @@
             font-size: 14px; gap: 12px; transition: all 0.2s ease;
             min-width: 120px;
         }
-        .quick-item i {
-            font-size: 30px; color: var(--accent); transition: transform 0.2s ease;
-        }
-        .quick-item span {
-            border-bottom: 2px solid transparent; transition: border-color 0.2s ease;
-        }
+        .quick-item i { font-size: 30px; color: var(--accent); transition: transform 0.2s ease; }
+        .quick-item span { border-bottom: 2px solid transparent; transition: border-color 0.2s ease; }
         .quick-item:hover i { transform: translateY(-4px); }
         .quick-item:hover span { border-bottom-color: var(--accent); color: var(--accent); }
 
@@ -124,16 +120,17 @@
             background: var(--card-bg); padding: 28px; border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
         .card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
-        .card h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .card h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; }
         .card p { color: var(--text-light); font-size: 14px; margin-bottom: 20px; }
         
         .btn {
             display: inline-block; padding: 10px 18px;
             background-color: var(--accent); color: white;
             text-decoration: none; border-radius: 6px;
-            font-weight: 600; font-size: 14px; transition: 0.2s;
+            font-weight: 600; font-size: 14px; transition: 0.2s; border: none; cursor: pointer;
         }
         .btn:hover { background-color: var(--accent-hover); }
 
@@ -160,6 +157,33 @@
         }
         .timeline-item h4 { color: var(--primary); font-size: 17px; margin-bottom: 4px; }
         .timeline-item .date { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 10px; display: block; }
+
+        /* XÜSUSİ MODAL / DETAL PƏNCƏRƏSİ STİLİ */
+        .modal-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 19, 41, 0.8); backdrop-filter: blur(8px);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; padding: 20px;
+        }
+        .modal-card {
+            background: #ffffff; width: 100%; max-width: 650px;
+            border-radius: 12px; padding: 35px; position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-close {
+            position: absolute; top: 20px; right: 20px;
+            font-size: 24px; color: #64748b; cursor: pointer; transition: 0.2s;
+        }
+        .modal-close:hover { color: #0f172a; }
+        .modal-title { font-size: 22px; color: var(--primary); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+        .modal-body { color: #334155; font-size: 15px; line-height: 1.7; margin-top: 15px; }
+        .modal-body ul { margin-left: 20px; margin-top: 10px; margin-bottom: 15px; }
+        .modal-body li { margin-bottom: 6px; }
 
         footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 60px; }
     </style>
@@ -218,47 +242,59 @@
             </a>
         </div>
 
-        <!-- XİDMƏTLƏR VƏ EKSPERTİZA (YENİ BÖLMƏ) -->
+        <!-- XİDMƏTLƏR VƏ EKSPERTİZA -->
         <section id="services">
             <h3 class="section-title">Services & Expertise</h3>
             <div class="grid">
                 
                 <div class="card">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div class="service-icon"><i class="fa-solid fa-bug"></i></div>
-                        <h4 style="margin: 0;">Web Security Testing</h4>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div class="service-icon"><i class="fa-solid fa-bug"></i></div>
+                            <h4 style="margin: 0;">Web Security Testing</h4>
+                        </div>
+                        <p>Analyzing web applications for vulnerability vectors (OWASP Top 10), client-side & server-side flaw identification.</p>
                     </div>
-                    <p style="margin-bottom: 0;">Analyzing web applications for vulnerability vectors (OWASP Top 10), client-side & server-side flaw identification, and security verification.</p>
+                    <button class="btn" onclick="openModal('web-sec')">View Details & Scope &rarr;</button>
                 </div>
 
                 <div class="card">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div class="service-icon"><i class="fa-solid fa-network-wired"></i></div>
-                        <h4 style="margin: 0;">Network Enumeration</h4>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div class="service-icon"><i class="fa-solid fa-network-wired"></i></div>
+                            <h4 style="margin: 0;">Network Enumeration</h4>
+                        </div>
+                        <p>Network discovery, open port auditing, service identification, and misconfiguration evaluations.</p>
                     </div>
-                    <p style="margin-bottom: 0;">Network discovery, open port auditing, service identification, and misconfiguration evaluations using standard network scanning tools.</p>
+                    <button class="btn" onclick="openModal('net-enum')">View Details & Scope &rarr;</button>
                 </div>
 
                 <div class="card">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div class="service-icon"><i class="fa-solid fa-terminal"></i></div>
-                        <h4 style="margin: 0;">Linux System Hardening</h4>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div class="service-icon"><i class="fa-solid fa-terminal"></i></div>
+                            <h4 style="margin: 0;">Linux System Hardening</h4>
+                        </div>
+                        <p>Access control configurations, shell navigation, privilege management, and OS security baseline verification.</p>
                     </div>
-                    <p style="margin-bottom: 0;">Access control configurations, shell navigation, privilege management, and OS security baseline verification.</p>
+                    <button class="btn" onclick="openModal('linux-sec')">View Details & Scope &rarr;</button>
                 </div>
 
                 <div class="card">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div class="service-icon"><i class="fa-solid fa-file-contract"></i></div>
-                        <h4 style="margin: 0;">Technical Security Writing</h4>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div class="service-icon"><i class="fa-solid fa-file-contract"></i></div>
+                            <h4 style="margin: 0;">Technical Security Writing</h4>
+                        </div>
+                        <p>Authoring comprehensive lab write-ups, vulnerability assessment reports, and clear remediation guidance.</p>
                     </div>
-                    <p style="margin-bottom: 0;">Authoring comprehensive lab write-ups, vulnerability assessment reports, and clear remediation guidance for technical teams.</p>
+                    <button class="btn" onclick="openModal('tech-write')">View Details & Scope &rarr;</button>
                 </div>
 
             </div>
         </section>
 
-        <!-- TEXNİKİ BACARIQLAR (YENİ BÖLMƏ) -->
+        <!-- TEXNİKİ BACARIQLAR -->
         <section id="skills">
             <h3 class="section-title">Technical Skills & Competencies</h3>
             <div class="skills-container">
@@ -330,6 +366,14 @@
 
     </div>
 
+    <!-- İNTERAKTİV DETAL MODAL PƏNCƏRƏSİ -->
+    <div id="serviceModal" class="modal-bg" onclick="closeModalOnOuterClick(event)">
+        <div class="modal-card">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
     <footer>
         &copy; 2026 Latif Shukurlu. Portfolio hosted on GitHub Pages.
     </footer>
@@ -343,6 +387,83 @@
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
             document.getElementById("overlay").style.display = "none";
+        }
+
+        /* MODAL / SUB-PAGE DYNAMIC CONTENT FUNCTIONALITY */
+        const modalData = {
+            'web-sec': {
+                title: '<i class="fa-solid fa-bug" style="color:#2563eb;"></i> Web Application Security Assessment',
+                body: `
+                    <p>Comprehensive evaluation of web application logic and attack surfaces according to industry frameworks (OWASP Top 10).</p>
+                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
+                    <ul>
+                        <li>Input validation and sanitization testing (SQLi, XSS, CSRF).</li>
+                        <li>Authentication mechanics and session state evaluations.</li>
+                        <li>Client-side vs Server-side vulnerability analysis using PortSwigger Web Security Academy labs.</li>
+                    </ul>
+                    <p style="font-size:13px; color:#64748b;"><strong>Primary Tools:</strong> Burp Suite, Browser Developer Tools, PortSwigger Labs.</p>
+                `
+            },
+            'net-enum': {
+                title: '<i class="fa-solid fa-network-wired" style="color:#2563eb;"></i> Network Assessment & Enumeration',
+                body: `
+                    <p>Auditing active network nodes, mapping exposed services, and identifying security misconfigurations across internal and external assets.</p>
+                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
+                    <ul>
+                        <li>Port scanning and active service fingerprinting.</li>
+                        <li>Identification of unpatched or legacy service protocols.</li>
+                        <li>Evaluating network segmentation and vulnerability remediation scenarios.</li>
+                    </ul>
+                    <p style="font-size:13px; color:#64748b;"><strong>Primary Tools:</strong> Nmap, Wireshark, Command-Line Utilities.</p>
+                `
+            },
+            'linux-sec': {
+                title: '<i class="fa-solid fa-terminal" style="color:#2563eb;"></i> Linux System Hardening & Administration',
+                body: `
+                    <p>Practical configuration, access control management, and privilege level security within Linux distributions.</p>
+                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
+                    <ul>
+                        <li>POSIX permission management and file-system security controls.</li>
+                        <li>Privilege escalation vector identification and mitigation.</li>
+                        <li>Shell environment navigation and automated bash scripting (OverTheWire Bandit practice).</li>
+                    </ul>
+                    <p style="font-size:13px; color:#64748b;"><strong>Primary Tools:</strong> Linux Bash Shell, SSH, OverTheWire Labs.</p>
+                `
+            },
+            'tech-write': {
+                title: '<i class="fa-solid fa-file-contract" style="color:#2563eb;"></i> Technical Documentation & Write-ups',
+                body: `
+                    <p>Translating complex technical vulnerability research into structured, readable reports for academic and institutional evaluation.</p>
+                    <h5 style="margin-top:15px; color:#0f172a; font-weight:700;">Key Methodologies & Scope:</h5>
+                    <ul>
+                        <li>Detailed Proof of Concept (PoC) step-by-step drafting.</li>
+                        <li>Impact evaluation and technical risk scoring.</li>
+                        <li>Actionable remediation strategies tailored for infrastructure teams.</li>
+                    </ul>
+                    <p style="font-size:13px; color:#64748b;"><strong>Formats:</strong> Technical Markdown Write-ups, Executive Summaries, PDF Documentation.</p>
+                `
+            }
+        };
+
+        function openModal(key) {
+            const data = modalData[key];
+            if(data) {
+                document.getElementById('modalContent').innerHTML = `
+                    <div class="modal-title">${data.title}</div>
+                    <div class="modal-body">${data.body}</div>
+                `;
+                document.getElementById('serviceModal').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('serviceModal').style.display = 'none';
+        }
+
+        function closeModalOnOuterClick(event) {
+            if (event.target.id === 'serviceModal') {
+                closeModal();
+            }
         }
     </script>
 
