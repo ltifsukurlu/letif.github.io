@@ -24,7 +24,6 @@
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
             color: var(--text-dark);
-            /* Müasir Tünd Göy-Boz Arxa Fon və Yüngül Tor Şəkli */
             background-color: var(--bg-dark);
             background-image: 
                 radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
@@ -120,14 +119,14 @@
         .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.15); }
 
         /* Grid / Kartlar */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .card {
             background: var(--card-bg); padding: 28px; border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
-        .card h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; }
+        .card h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
         .card p { color: var(--text-light); font-size: 14px; margin-bottom: 20px; }
         
         .btn {
@@ -137,6 +136,22 @@
             font-weight: 600; font-size: 14px; transition: 0.2s;
         }
         .btn:hover { background-color: var(--accent-hover); }
+
+        /* Xidmətlər İkon Düzümü */
+        .service-icon {
+            width: 42px; height: 42px; background: #eff6ff; color: var(--accent);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0;
+        }
+
+        /* Bacarıqlar Veqi (Skills Badges) */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .skill-badge {
+            background: rgba(255, 255, 255, 0.08); color: #e2e8f0;
+            padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.12); display: flex; align-items: center; gap: 8px;
+        }
+        .skill-badge i { color: #60a5fa; }
 
         .timeline-item {
             background: var(--card-bg); padding: 24px; border-radius: 8px;
@@ -163,7 +178,9 @@
     <div id="mySidebar" class="sidebar">
         <span class="close-btn" onclick="closeNav()">&times;</span>
         <a href="#about" onclick="closeNav()">About Me</a>
-        <a href="#academic" onclick="closeNav()">Academic & Programs</a>
+        <a href="#services" onclick="closeNav()">Services & Capabilities</a>
+        <a href="#skills" onclick="closeNav()">Technical Skills</a>
+        <a href="#academic" onclick="closeNav()">Academic Background</a>
         <a href="#reports" onclick="closeNav()">Technical Reports</a>
         <a href="#contact" onclick="closeNav()">Contact</a>
     </div>
@@ -179,6 +196,10 @@
 
         <!-- Sürətli İkon Keçidləri -->
         <div class="quick-links">
+            <a href="#services" class="quick-item">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Services</span>
+            </a>
             <a href="#reports" class="quick-item">
                 <i class="fa-solid fa-shield-halved"></i>
                 <span>Security Reports</span>
@@ -187,19 +208,70 @@
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>Academic Info</span>
             </a>
-            <a href="#reports" class="quick-item">
-                <i class="fa-solid fa-terminal"></i>
-                <span>Practical Labs</span>
-            </a>
-            <a href="#academic" class="quick-item">
-                <i class="fa-solid fa-globe"></i>
-                <span>Global Mobility</span>
+            <a href="#skills" class="quick-item">
+                <i class="fa-solid fa-code"></i>
+                <span>Core Skills</span>
             </a>
             <a href="#contact" class="quick-item">
                 <i class="fa-solid fa-envelope"></i>
                 <span>Get in Touch</span>
             </a>
         </div>
+
+        <!-- XİDMƏTLƏR VƏ EKSPERTİZA (YENİ BÖLMƏ) -->
+        <section id="services">
+            <h3 class="section-title">Services & Expertise</h3>
+            <div class="grid">
+                
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <div class="service-icon"><i class="fa-solid fa-bug"></i></div>
+                        <h4 style="margin: 0;">Web Security Testing</h4>
+                    </div>
+                    <p style="margin-bottom: 0;">Analyzing web applications for vulnerability vectors (OWASP Top 10), client-side & server-side flaw identification, and security verification.</p>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <div class="service-icon"><i class="fa-solid fa-network-wired"></i></div>
+                        <h4 style="margin: 0;">Network Enumeration</h4>
+                    </div>
+                    <p style="margin-bottom: 0;">Network discovery, open port auditing, service identification, and misconfiguration evaluations using standard network scanning tools.</p>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <div class="service-icon"><i class="fa-solid fa-terminal"></i></div>
+                        <h4 style="margin: 0;">Linux System Hardening</h4>
+                    </div>
+                    <p style="margin-bottom: 0;">Access control configurations, shell navigation, privilege management, and OS security baseline verification.</p>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <div class="service-icon"><i class="fa-solid fa-file-contract"></i></div>
+                        <h4 style="margin: 0;">Technical Security Writing</h4>
+                    </div>
+                    <p style="margin-bottom: 0;">Authoring comprehensive lab write-ups, vulnerability assessment reports, and clear remediation guidance for technical teams.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TEXNİKİ BACARIQLAR (YENİ BÖLMƏ) -->
+        <section id="skills">
+            <h3 class="section-title">Technical Skills & Competencies</h3>
+            <div class="skills-container">
+                <div class="skill-badge"><i class="fa-brands fa-linux"></i> Linux Administration</div>
+                <div class="skill-badge"><i class="fa-solid fa-shield-halved"></i> Web App Security</div>
+                <div class="skill-badge"><i class="fa-solid fa-network-wired"></i> Network Analysis</div>
+                <div class="skill-badge"><i class="fa-solid fa-magnifying-glass"></i> Vulnerability Assessment</div>
+                <div class="skill-badge"><i class="fa-solid fa-terminal"></i> Bash & Shell Commands</div>
+                <div class="skill-badge"><i class="fa-solid fa-drafting-compass"></i> AutoCAD Technical Drawing</div>
+                <div class="skill-badge"><i class="fa-solid fa-laptop-code"></i> PortSwigger Labs</div>
+                <div class="skill-badge"><i class="fa-solid fa-cube"></i> OverTheWire / TryHackMe</div>
+            </div>
+        </section>
 
         <!-- Akademik Fəaliyyətlər -->
         <section id="academic">
