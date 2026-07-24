@@ -88,9 +88,10 @@
         }
         .sidebar a {
             padding: 16px 30px; text-decoration: none;
-            font-size: 16px; color: #94a3b8; display: block;
+            font-size: 16px; color: #94a3b8; display: flex; align-items: center; gap: 12px;
             transition: 0.2s; font-weight: 500; cursor: pointer;
         }
+        .sidebar a i { width: 20px; text-align: center; font-size: 18px; }
         .sidebar a:hover, .sidebar a.active { color: #ffffff; background: rgba(255,255,255,0.05); border-left: 4px solid var(--accent); }
         .sidebar .close-btn { position: absolute; top: 15px; right: 25px; font-size: 30px; cursor: pointer; color: #94a3b8; border:none; background:none;}
 
@@ -100,7 +101,7 @@
             backdrop-filter: blur(3px); z-index: 999;
         }
 
-        /* SƏHİFƏLƏR ARASI KEÇİD EFFEKTİ (SPA MƏNTİQİ) */
+        /* SƏHİFƏLƏR ARASI KEÇİD EFFEKTİ */
         .page-content { max-width: 1000px; margin: 100px auto 40px; padding: 0 20px; min-height: 70vh; }
         .page-section { display: none; animation: fadePage 0.4s ease-in-out forwards; }
         .page-section.active { display: block; }
@@ -131,7 +132,7 @@
         }
         .card:hover { transform: translateY(-4px); }
         .card h4 { font-size: 18px; color: var(--primary); margin-bottom: 12px; }
-        .card p { color: var(--text-light); font-size: 14px; margin-bottom: 20px; }
+        .card p { color: var(--text-light); font-size: 15px; margin-bottom: 20px; }
         
         .btn {
             display: inline-block; padding: 10px 18px; background-color: var(--accent);
@@ -164,6 +165,13 @@
         .timeline-item h4 { color: var(--primary); font-size: 17px; margin-bottom: 4px; }
         .timeline-item .date { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 10px; display: block; }
 
+        /* ƏLAQƏ BÖLMƏSİ */
+        .contact-info { display: flex; flex-direction: column; gap: 15px; }
+        .contact-item { display: flex; align-items: center; gap: 15px; font-size: 16px; color: var(--text-dark); }
+        .contact-item i { font-size: 20px; color: var(--accent); width: 25px; text-align: center; }
+        .contact-item a { color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+        .contact-item a:hover { color: var(--accent); }
+
         .section-title { font-size: 24px; color: #ffffff; font-weight: 700; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
 
         footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
@@ -171,7 +179,7 @@
 </head>
 <body>
 
-    <!-- Qaranlıq Arxa Plan (Menyu açılanda) -->
+    <!-- Qaranlıq Arxa Plan -->
     <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
     <!-- ÜST MENYU VƏ DİL DROPDOWN -->
@@ -190,31 +198,43 @@
         </div>
     </header>
 
-    <!-- SOL SİDEBAR EKRANLARI -->
+    <!-- SOL SİDEBAR EKRANLARI (İKONLARLA) -->
     <div id="mySidebar" class="sidebar">
         <button class="close-btn" onclick="closeNav()">&times;</button>
-        <a onclick="navigateTo('home')" id="nav-home" class="active" data-i18n="nav_home">Home</a>
-        <a onclick="navigateTo('services')" id="nav-services" data-i18n="nav_services">Services & Expertise</a>
-        <a onclick="navigateTo('skills')" id="nav-skills" data-i18n="nav_skills">Technical Skills</a>
-        <a onclick="navigateTo('academic')" id="nav-academic" data-i18n="nav_academic">Academic Profile</a>
-        <a onclick="navigateTo('reports')" id="nav-reports" data-i18n="nav_reports">Security Reports</a>
-        <a onclick="navigateTo('contact')" id="nav-contact" data-i18n="nav_contact">Contact</a>
+        <a onclick="navigateTo('home')" id="nav-home" class="active"><i class="fa-solid fa-house"></i> <span data-i18n="nav_home">Home</span></a>
+        <a onclick="navigateTo('about')" id="nav-about"><i class="fa-solid fa-user-shield"></i> <span data-i18n="nav_about">About Me</span></a>
+        <a onclick="navigateTo('services')" id="nav-services"><i class="fa-solid fa-list-check"></i> <span data-i18n="nav_services">Services & Expertise</span></a>
+        <a onclick="navigateTo('skills')" id="nav-skills"><i class="fa-solid fa-laptop-code"></i> <span data-i18n="nav_skills">Technical Skills</span></a>
+        <a onclick="navigateTo('academic')" id="nav-academic"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="nav_academic">Academic Profile</span></a>
+        <a onclick="navigateTo('reports')" id="nav-reports"><i class="fa-solid fa-file-shield"></i> <span data-i18n="nav_reports">Security Reports</span></a>
+        <a onclick="navigateTo('contact')" id="nav-contact"><i class="fa-solid fa-address-card"></i> <span data-i18n="nav_contact">Contact</span></a>
     </div>
 
-    <!-- ƏSAS MƏZMUN (SƏHİFƏLƏR ARASI KEÇİD BURADA BAŞ VERİR) -->
+    <!-- ƏSAS MƏZMUN -->
     <div class="page-content">
         
         <!-- SƏHİFƏ 1: HOME -->
         <section id="home" class="page-section active">
             <div class="hero">
                 <h1>Latif Shukurlu</h1>
-                <h2 data-i18n="hero_subtitle">Information Security Undergraduate & Researcher</h2>
-                <p data-i18n="hero_desc">Specializing in Information Security with a practical focus on network vulnerability assessments, web application security, and cybersecurity labs. Active participant in international student exchanges, academic forums, and youth programs.</p>
-                <button class="btn" onclick="navigateTo('services')" data-i18n="btn_explore">Explore My Work &rarr;</button>
+                <h2 data-i18n="hero_subtitle">Information Security Student & Researcher</h2>
+                <p data-i18n="hero_desc">Passionate about strengthening digital infrastructures. Specialized in practical web application security, Linux systems, and penetration testing methodologies.</p>
+                <button class="btn" onclick="navigateTo('about')" data-i18n="btn_explore">Discover My Journey &rarr;</button>
             </div>
         </section>
 
-        <!-- SƏHİFƏ 2: XİDMƏTLƏR -->
+        <!-- SƏHİFƏ 2: HAQQIMDA (YENİ) -->
+        <section id="about" class="page-section">
+            <h3 class="section-title" data-i18n="sec_about">About Me</h3>
+            <div class="card" style="line-height: 1.8;">
+                <h4 data-i18n="about_title">My Cybersecurity Journey</h4>
+                <p data-i18n="about_p1">I am a dedicated Information Security student with a strong drive for practical cybersecurity implementation. My hands-on experience involves actively solving technical challenges on platforms like TryHackMe (where I completed the Linux Fundamentals), PortSwigger Web Security Academy, and OverTheWire Bandit labs.</p>
+                <p data-i18n="about_p2">Recently, my dedication to the field led to an invitation to the examination stage of Cohort 8 by the Azerbaijan Cybersecurity Center (ACC), and I actively pursued an Information Security internship at Azerbaijan Railways to apply my knowledge in enterprise environments.</p>
+                <p data-i18n="about_p3">Beyond terminal screens and lab environments, I believe in the power of global networking. I have represented my university at international events like the UN's WUF13 and applied for Erasmus+ mobility projects to broaden my intercultural perspectives.</p>
+            </div>
+        </section>
+
+        <!-- SƏHİFƏ 3: XİDMƏTLƏR -->
         <section id="services" class="page-section">
             <h3 class="section-title" data-i18n="sec_services">Services & Expertise</h3>
             <div class="grid">
@@ -248,7 +268,7 @@
             </div>
         </section>
 
-        <!-- SƏHİFƏ 3: BACARIQLAR -->
+        <!-- SƏHİFƏ 4: BACARIQLAR -->
         <section id="skills" class="page-section">
             <h3 class="section-title" data-i18n="sec_skills">Technical Skills & Competencies</h3>
             <div class="skills-container" style="margin-top: 30px;">
@@ -263,12 +283,12 @@
             </div>
         </section>
 
-        <!-- SƏHİFƏ 4: AKADEMİK -->
+        <!-- SƏHİFƏ 5: AKADEMİK (3-cü kurs olaraq yeniləndi) -->
         <section id="academic" class="page-section">
             <h3 class="section-title" data-i18n="sec_academic">Academic Background & Engagement</h3>
             <div class="timeline-item">
                 <h4 data-i18n="acad1_title">Azerbaijan Architecture and Construction University</h4>
-                <span class="date" data-i18n="acad1_degree">Degree: B.Sc. in Information Security (2nd Year)</span>
+                <span class="date" data-i18n="acad1_degree">Degree: B.Sc. in Information Security (3rd Year)</span>
                 <p data-i18n="acad1_desc">Focusing on cybersecurity principles, Linux system administration, and network analysis. Applying theoretical foundations to practical cybersecurity frameworks.</p>
             </div>
             <div class="timeline-item">
@@ -278,7 +298,7 @@
             </div>
         </section>
 
-        <!-- SƏHİFƏ 5: HESABATLAR -->
+        <!-- SƏHİFƏ 6: HESABATLAR -->
         <section id="reports" class="page-section">
             <h3 class="section-title" data-i18n="sec_reports">Technical Reports</h3>
             <p style="margin-bottom: 20px; color: #cbd5e1;" data-i18n="reports_desc">Comprehensive write-ups and documentation on web security labs and vulnerability research.</p>
@@ -296,15 +316,21 @@
             </div>
         </section>
 
-        <!-- SƏHİFƏ 6: ƏLAQƏ -->
+        <!-- SƏHİFƏ 7: ƏLAQƏ (Nömrə və Mail yeniləndi) -->
         <section id="contact" class="page-section">
             <h3 class="section-title" data-i18n="sec_contact">Contact</h3>
-            <div class="card" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
-                <div>
-                    <h4 style="margin: 0;" data-i18n="cnt_title">Get in Touch</h4>
-                    <p style="margin: 5px 0 0 0;" data-i18n="cnt_desc">Open for academic collaboration, exchange projects, and security research.</p>
+            <div class="card">
+                <h4 data-i18n="cnt_title" style="margin-bottom: 20px;">Let's Connect</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="tel:+994507812939">+994 50 781 29 39</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:ltifsukurlu@gmail.com">ltifsukurlu@gmail.com</a>
+                    </div>
                 </div>
-                <a href="mailto:your-email@example.com" class="btn" data-i18n="btn_email">Send Email</a>
             </div>
         </section>
 
@@ -314,20 +340,28 @@
         &copy; 2026 Latif Shukurlu. Portfolio hosted on GitHub Pages.
     </footer>
 
-    <!-- FUNKSİYALAR: DİL DƏYİŞİMİ VƏ SƏHİFƏ KEÇİDLƏRİ -->
+    <!-- FUNKSİYALAR -->
     <script>
-        // 1. Dil Tərcümə Bazası
         const translations = {
             en: {
                 nav_home: "Home",
+                nav_about: "About Me",
                 nav_services: "Services & Expertise",
                 nav_skills: "Technical Skills",
                 nav_academic: "Academic Profile",
                 nav_reports: "Security Reports",
                 nav_contact: "Contact",
-                hero_subtitle: "Information Security Undergraduate & Researcher",
-                hero_desc: "Specializing in Information Security with a practical focus on network vulnerability assessments, web application security, and cybersecurity labs. Active participant in international student exchanges, academic forums, and youth programs.",
-                btn_explore: "Explore My Work →",
+                
+                hero_subtitle: "Information Security Student & Researcher",
+                hero_desc: "Passionate about strengthening digital infrastructures. Specialized in practical web application security, Linux systems, and penetration testing methodologies.",
+                btn_explore: "Discover My Journey →",
+                
+                sec_about: "About Me",
+                about_title: "My Cybersecurity Journey",
+                about_p1: "I am a dedicated Information Security student with a strong drive for practical cybersecurity implementation. My hands-on experience involves actively solving technical challenges on platforms like TryHackMe (where I completed the Linux Fundamentals), PortSwigger Web Security Academy, and OverTheWire Bandit labs.",
+                about_p2: "Recently, my dedication to the field led to an invitation to the examination stage of Cohort 8 by the Azerbaijan Cybersecurity Center (ACC), and I actively pursued an Information Security internship at Azerbaijan Railways to apply my knowledge in enterprise environments.",
+                about_p3: "Beyond terminal screens and lab environments, I believe in the power of global networking. I have represented my university at international events like the UN's WUF13 and applied for Erasmus+ mobility projects to broaden my intercultural perspectives.",
+                
                 sec_services: "Services & Expertise",
                 srv1_title: "Web Security Testing",
                 srv1_desc: "Analyzing web applications for vulnerability vectors (OWASP Top 10), client-side & server-side flaw identification.",
@@ -335,14 +369,16 @@
                 srv2_desc: "Network discovery, open port auditing, service identification, and misconfiguration evaluations.",
                 srv3_title: "Linux System Hardening",
                 srv3_desc: "Access control configurations, shell navigation, privilege management, and OS security baseline verification.",
+                
                 sec_skills: "Technical Skills & Competencies",
                 sec_academic: "Academic Background & Engagement",
                 acad1_title: "Azerbaijan Architecture and Construction University",
-                acad1_degree: "Degree: B.Sc. in Information Security (2nd Year)",
+                acad1_degree: "Degree: B.Sc. in Information Security (3rd Year)",
                 acad1_desc: "Focusing on cybersecurity principles, Linux system administration, and network analysis. Applying theoretical foundations to practical cybersecurity frameworks.",
                 acad2_title: "International Forums & Student Mobility",
                 acad2_date: "May 2026 - Present",
                 acad2_desc: "Active participant in global organizational events such as UN's WUF13 and European student mobility projects (Erasmus+).",
+                
                 sec_reports: "Technical Reports",
                 reports_desc: "Comprehensive write-ups and documentation on web security labs and vulnerability research.",
                 rep1_title: "Web Application Vulnerabilities",
@@ -350,21 +386,29 @@
                 rep2_title: "Linux Security Navigation",
                 rep2_desc: "Security write-up detailing access controls and privilege management.",
                 btn_pdf: "View Document",
+                
                 sec_contact: "Contact",
-                cnt_title: "Get in Touch",
-                cnt_desc: "Open for academic collaboration, exchange projects, and security research.",
-                btn_email: "Send Email"
+                cnt_title: "Let's Connect"
             },
             az: {
                 nav_home: "Əsas Səhifə",
+                nav_about: "Haqqımda",
                 nav_services: "Xidmətlər",
                 nav_skills: "Texniki Bacarıqlar",
                 nav_academic: "Təhsil & Fəaliyyət",
                 nav_reports: "Hesabatlar",
                 nav_contact: "Əlaqə",
+                
                 hero_subtitle: "İnformasiya Təhlükəsizliyi Tələbəsi və Tədqiqatçı",
-                hero_desc: "İnformasiya Təhlükəsizliyi sahəsində şəbəkə zəifliklərinin qiymətləndirilməsi, veb tətbiq təhlükəsizliyi və kiber-laboratoriya tapşırıqları üzrə praktiki ixtisaslaşma. Beynəlxalq tələbə mübadilələri, akademik forumlar və gənclər layihələrinin fəal iştirakçısı.",
+                hero_desc: "Rəqəmsal infrastrukturların gücləndirilməsi üzrə böyük həvəsə sahibəm. Praktiki veb tətbiq təhlükəsizliyi, Linux sistemləri və sızma testləri (pentest) metodologiyaları üzrə ixtisaslaşıram.",
                 btn_explore: "Fəaliyyətimlə Tanış Ol →",
+                
+                sec_about: "Haqqımda",
+                about_title: "Kiber-Təhlükəsizlik Fəaliyyətim",
+                about_p1: "Mən kiber-təhlükəsizlik sahəsinin praktiki tətbiqinə böyük marağı olan İnformasiya Təhlükəsizliyi tələbəsiyəm. Təcrübəm əsasən TryHackMe (Linux Fundamentals modulunu bitirmişəm), PortSwigger Web Security Academy və OverTheWire Bandit kimi platformalarda texniki tapşırıqların həllini əhatə edir.",
+                about_p2: "Bu yaxınlarda sahəyə olan marağım sayəsində Azərbaycan Kibertəhlükəsizlik Mərkəzinin (AKM) 8-ci Dalğa proqramının imtahan mərhələsinə dəvət almışam. Həmçinin, biliklərimi korporativ mühitdə tətbiq etmək məqsədilə Azərbaycan Dəmir Yollarında İnformasiya Təhlükəsizliyi üzrə təcrübə proqramına müraciət etmişəm.",
+                about_p3: "Terminal ekranları və laboratoriya mühitlərindən əlavə, qlobal əlaqələrin gücünə inanıram. BMT-nin WUF13 kimi beynəlxalq tədbirlərində universitetimi təmsil etmişəm və mədəniyyətlərarası dünyagörüşümü artırmaq üçün Erasmus+ mobillik layihələrində iştirak edirəm.",
+                
                 sec_services: "Xidmətlər və Ekspertiza",
                 srv1_title: "Veb Tətbiq Təhlükəsizliyi",
                 srv1_desc: "Veb tətbiqlərin OWASP Top 10 zəiflik vektorları, istifadəçi və server tərəfli xətalarının təhlili.",
@@ -372,14 +416,16 @@
                 srv2_desc: "Şəbəkə resurslarının aşkarlanması, açıq portların auditi, xidmətlərin təyini və konfiqurasiya xətalarının qiymətləndirilməsi.",
                 srv3_title: "Linux Sistem Təhlükəsizliyi",
                 srv3_desc: "Çıxış hüquqlarının tənzimlənməsi, imtiyazların idarə olunması və ƏS təhlükəsizlik standartlarının yoxlanılması.",
+                
                 sec_skills: "Texniki Bacarıqlar",
                 sec_academic: "Təhsil və Akademik Fəaliyyət",
                 acad1_title: "Azərbaycan Memarlıq və İnşaat Universiteti",
-                acad1_degree: "Dərəcə: İnformasiya Təhlükəsizliyi (2-ci kurs)",
+                acad1_degree: "Dərəcə: İnformasiya Təhlükəsizliyi (3-cü kurs)",
                 acad1_desc: "Kiber-təhlükəsizlik prinsipləri, Linux sistem inzibatçılığı və şəbəkə analizi üzrə ixtisaslaşma.",
                 acad2_title: "Beynəlxalq Tələbə Mobilliyi",
                 acad2_date: "May 2026 - Hal-hazırda",
                 acad2_desc: "BMT-nin WUF13 forumu və Avropa tələbə mobilliyi layihələrinin (Erasmus+) fəal iştirakçısı.",
+                
                 sec_reports: "Texniki Hesabatlar",
                 reports_desc: "Veb təhlükəsizlik laboratoriyaları, sistem inzibatçılığı və zəiflik tədqiqatları üzrə ətraflı sənədləşdirmə.",
                 rep1_title: "Veb Tətbiq Zəiflikləri",
@@ -387,21 +433,18 @@
                 rep2_title: "Linux Təhlükəsizliyi",
                 rep2_desc: "Çıxış hüquqları və imtiyazların idarə olunması hesabatı.",
                 btn_pdf: "Sənədə Bax",
+                
                 sec_contact: "Əlaqə",
-                cnt_title: "Əlaqə Saxlayın",
-                cnt_desc: "Akademik şərikliklər, tələbə mübadilələri və tədqiqatlar üzrə açığam.",
-                btn_email: "E-poçt Göndər"
+                cnt_title: "Əlaqə Saxlayın"
             }
         };
 
-        // 2. Default Dili Təyin Etmə (İngilis)
         let currentLang = localStorage.getItem('site_lang') || 'en';
 
         function changeLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('site_lang', lang);
             
-            // Səhifədəki mətni dəyiş
             document.querySelectorAll('[data-i18n]').forEach(elem => {
                 const key = elem.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
@@ -410,29 +453,21 @@
             });
         }
 
-        // 3. Səhifələr Arası Keçid Sistemi (SPA)
         function navigateTo(pageId) {
-            // Bütün səhifələri gizlət
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
             });
-            // Seçilən səhifəni göstər
             document.getElementById(pageId).classList.add('active');
 
-            // Menyu aktivliyini dəyiş (Rəngləmə)
             document.querySelectorAll('.sidebar a').forEach(link => {
                 link.classList.remove('active');
             });
             document.getElementById('nav-' + pageId).classList.add('active');
 
-            // Əgər mobildədirsə və ya menyu açıqdırsa, bağla
             closeNav();
-            
-            // Səhifənin ən yuxarısına qaytar
             window.scrollTo(0, 0);
         }
 
-        // 4. Sidebar (Menyu) İdarəçiliyi
         function openNav() {
             document.getElementById("mySidebar").style.width = "280px";
             document.getElementById("overlay").style.display = "block";
@@ -443,7 +478,6 @@
             document.getElementById("overlay").style.display = "none";
         }
 
-        // Səhifə tam yükləndikdə dili və ilk səhifəni (Home) aktivləşdir
         window.addEventListener('DOMContentLoaded', () => {
             changeLanguage(currentLang);
         });
